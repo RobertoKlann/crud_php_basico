@@ -14,17 +14,17 @@
         </tr>
 
         <?php
-            $produtos = listaProduto($conexao);
-            foreach($produtos as $produto) :
+            $oProdutos = listaProdutos($oConexao);
+            foreach($oProdutos as $oProduto) :
         ?>
 
              <tr>
-                <td><?=$produto["nome"]?></td>
-                <td><?=$produto["preco"]?></td>
-                <td><?=$produto["descricao"]?></td>
-                <td><?=$produto["cat_nome"]?></td>
+                <td><?=$oProduto["nome"]?></td>
+                <td><?=$oProduto["preco"]?></td>
+                <td><?=$oProduto["descricao"]?></td>
+                <td><?=$oProduto["cat_nome"]?></td>
                 <td>
-                    <a class ="btn btn-primary" href ="update_produto.php">Testezera</a>
+                    <a class ="btn btn-primary" href ="update_produto.php">Incluir</a>
                 </td>
             </tr>   
 

@@ -4,19 +4,17 @@
         $aProdutos = array();
 
         $sSql = "
-                SELECT p.*,
-                       c.nome as cat_nome
+                SELECT *
                   FROM produtos
-            INNER JOIN categorias as 
-                    ON c.categoria_id = p.categoria_id
+                  JOIN categorias  
+                    ON categoria_id = categoria_id
             ";
 
         $oResultado = mysqli_query($oConexao, $sSql);
 
-        while($oProduto = mysqli_fetch_assoc($oResultado)) {
-            array_push($aProdutos, $oProduto);
+        while($oLinhas = mysqli_fetch_array($oResultado)) {
+              $aProdutos[] =  $oLinhas;
         }
-
         return $aProdutos;
     }
 
