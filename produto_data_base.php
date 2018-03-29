@@ -4,10 +4,12 @@
         $aProdutos = array();
 
         $sSql = "
-                SELECT *
-                  FROM produtos
-                  JOIN categorias  
-                    ON categoria_id = categoria_id
+                SELECT p.*,
+                       c.cat_nome,
+                       c.id   AS categoria_id
+                  FROM produtos AS p
+                  JOIN categorias AS c
+                    ON c.id = p.categoria_id
             ";
 
         $oResultado = mysqli_query($oConexao, $sSql);
@@ -18,4 +20,61 @@
         return $aProdutos;
     }
 
-?>
+    function selectProduto($oConexao, $iId) {
+        $aProdutos = array();
+
+        $sSql = '
+               SELECT p.*,
+                      c.cat_nome,
+                      c.id AS categoria_id
+                 FROM produtos AS p
+                 JOIN categorias AS c
+                   ON c.id = p.categoria_id
+                WHERE p.id = ' . $iId;
+
+        $oResultado = mysqli_query($oConexao, $sSql);
+
+        while($oLinhas = mysqli_fetch_array($oResultado)) {
+              $aProdutos[] =  $oLinhas;
+        }
+        return $aProdutos;
+    }
+
+    function alteraProduto($oConexao, $aCamposAlterar) {
+        $sSql = '
+            UPDATE produtos
+               SET nome = ' . $aCamposAlterar["nome"] . ', descricao = '. $aCamposAlterar["descricao"] . ', categoria_id = ' . $aCamposAlterar["categoria_id"] .', 
+                          preco = ' . $aCamposAlterar["preco"] .'
+             WHERE ' . $aCamposAlterar["id"];
+
+        return mysql_query($oConexao, $sSql);
+    }
+
+
+    function removeProduto($oConexao, $iId) {
+        $sSql = '
+            DELETE 
+              FROM produtos 
+             WHERE produto.id = ' . $iId;
+
+        return mysqli_query($oConexao, $sSql);
+    }
+
+    function listaCategorias($oConexao) {
+        $aCategorias = array();
+        
+        $sSql = '
+            SELECT c.cat_nome
+              FROM produtos AS p
+              JOIN categorias as c
+                ON c.id = p.categoria_id';
+
+        $oResultado = mysqli_query($oConexao, $sSql);
+        
+        while($oLinhas = mysqli_fetch_array($oResultado)) {
+            $aCategorias[] =  $oLinhas;
+      }
+      return $aCategorias;
+    }
+
+?>  

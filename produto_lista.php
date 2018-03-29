@@ -6,6 +6,7 @@
 
     <table class ="table table-striped table-bordered">
         <tr>
+            <td>Código Produto</td>
             <td>Nome</td>
             <td>Preço</td>
             <td>Descrição</td>
@@ -19,12 +20,14 @@
         ?>
 
              <tr>
+                <td><?=$oProduto["id"]?></td>
                 <td><?=$oProduto["nome"]?></td>
                 <td><?=$oProduto["preco"]?></td>
                 <td><?=$oProduto["descricao"]?></td>
                 <td><?=$oProduto["cat_nome"]?></td>
+
                 <td>
-                    <a class ="btn btn-primary" href ="update_produto.php">Incluir</a>
+                    <a class ="btn btn-primary" href ="produto_update_form.php?id=".$oProduto["id"]>Alterar</a>
                 </td>
             </tr>   
 
