@@ -3,14 +3,14 @@
     include_once("conecta.php");
     include_once("produto_data_base.php");
 
-    $iId = $_GET["id"];
+    $iId = $_POST["id"];
 ?>
 
 <!-- Java Script  -->
 <Script>
     function limpaDadosTela(id_cat, descricao, nome_produto, preco) {
         var id_categoria = document.getElementById("categoria_id"),
-            descricao    = document.getElementById("descricao"),
+            descricao    = document.getElementById("cat_nome"),
             nome_produto = document.getElementById("nome_produto"),
             preco        = document.getElementById("preco");
 
@@ -36,11 +36,14 @@
         ?>    
             <form action = "update_produto.php" method = "POST">
                 <div class="form-group">
-                    <label for="categoria_id">Código da Categoria</label>
-                    <input type="text" class="form-control" id="categoria_id" value="<?php echo $aProdutos[0]['categoria_id'] ?>">
+                    <input type="hidden" class="form-control" name="id"  id="produto_id" value="<?php echo $aProdutos[0]['id'] ?>">
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="exampleFormControlSelect2">
+                    <label for="categoria_id">Código da Categoria</label>
+                    <input type="text" class="form-control" name="categoria_id"  id="categoria_id" value="<?php echo $aProdutos[0]['categoria_id'] ?>">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name ="cat_nome" id="exampleFormControlSelect2">
                         <option><?php echo $aCategorias[0]['cat_nome'] ?></option>
                         <option><?php echo $aCategorias[1]['cat_nome'] ?></option>
                         <option><?php echo $aCategorias[2]['cat_nome'] ?></option>
@@ -49,15 +52,15 @@
                 </div>
                 <div class="form-group">
                     <label for="nome_produto">Nome do Produto</label>
-                    <input type="text" class="form-control" id="nome_produto" value="<?php echo $aProdutos[0]['nome'] ?>">
+                    <input type="text" class="form-control" name="nome_produto" id="nome_produto" value="<?php echo $aProdutos[0]['nome'] ?>">
                 </div>
                 <div class="form-group">
                     <label for="preco">Preço do Produto</label>
-                    <input type="number" class="form-control" id="preco" value="<?php echo $aProdutos[0]['preco'] ?>">
+                    <input type="number" class="form-control" name="preco" id="preco" value="<?php echo $aProdutos[0]['preco'] ?>">
                 </div>
                 <button type="submit" class="btn btn-default">Confirmar</button>
                 <button class="btn btn-default" onClick = "verificaDesejaCancelar()">Cancelar</button>
-                <button class="btn btn-default" onClick = "limpaDadosTela(categoria_id, descricao, id_produto, preco)">Limpar</button>   
+                <button class="btn btn-default" onClick = "limpaDadosTela(categoria_id, cat_nome, nome_produto, preco)">Limpar</button>   
             </form>
         </div>
     </div>

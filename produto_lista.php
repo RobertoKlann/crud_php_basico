@@ -27,7 +27,10 @@
                 <td><?=$oProduto["cat_nome"]?></td>
 
                 <td>
-                    <a class ="btn btn-primary" href ="produto_update_form.php?id=".$oProduto["id"]>Alterar</a>
+                    <form class="btn-group" action ="produto_update_form.php" method ="POST">
+                        <input type ="hidden" name ="id" value="<?php echo $oProduto["id"]?>">
+                        <input class ="btn btn-primary" type ="submit" value ="Alterar"></input>
+                    </form>
                 </td>
             </tr>   
 

@@ -41,13 +41,14 @@
     }
 
     function alteraProduto($oConexao, $aCamposAlterar) {
-        $sSql = '
-            UPDATE produtos
-               SET nome = ' . $aCamposAlterar["nome"] . ', descricao = '. $aCamposAlterar["descricao"] . ', categoria_id = ' . $aCamposAlterar["categoria_id"] .', 
-                          preco = ' . $aCamposAlterar["preco"] .'
-             WHERE ' . $aCamposAlterar["id"];
 
-        return mysql_query($oConexao, $sSql);
+        
+        $sSql = "
+            UPDATE produtos
+               SET nome = '" . $aCamposAlterar["nome_produto"] . "', categoria_id = " . $aCamposAlterar["categoria_id"] .', 
+                          preco = ' . $aCamposAlterar["preco"] . " WHERE id = 1";
+                          
+        return mysqli_query($oConexao, $sSql);
     }
 
 
