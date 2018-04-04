@@ -56,7 +56,7 @@
         $sSql = '
             DELETE 
               FROM produtos 
-             WHERE produto.id = ' . $iId;
+             WHERE id = ' . $iId;
 
         return mysqli_query($oConexao, $sSql);
     }
@@ -76,6 +76,16 @@
             $aCategorias[] =  $oLinhas;
       }
       return $aCategorias;
+    }
+
+    function addProduto($oConexao, $aCampos) {
+
+        $sSql = "
+            INSERT INTO produtos (id, nome, preco, descricao, categoria_id)
+                 VALUES (" . $aCampos["id_produto"] . ", '" . $aCampos["nome_produto"] . "'," .  $aCampos["preco"] . ",'" . $aCampos["descricao"] . "'," . $aCampos["id_cat"] . ")
+        ";
+
+        return mysqli_query($oConexao, $sSql);
     }
 
 ?>  

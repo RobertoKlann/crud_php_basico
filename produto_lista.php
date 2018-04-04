@@ -31,6 +31,10 @@
                         <input type ="hidden" name ="id" value="<?php echo $oProduto["id"]?>">
                         <input class ="btn btn-primary" type ="submit" value ="Alterar"></input>
                     </form>
+                    <form class="btn-group" action ="produto_delete.php" method ="POST">
+                        <input type ="hidden" name ="id" value="<?php echo $oProduto["id"]?>">
+                        <input class ="btn btn-primary" type ="submit" value ="Excluir"></input>
+                    </form>
                 </td>
             </tr>   
 

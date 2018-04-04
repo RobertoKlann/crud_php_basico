@@ -17,7 +17,14 @@
     if(!$oResultado) {
         echo "Produto não encontrado";
     } else {
-        echo "Deu bom!";
+
+?>
+        <script>
+            alert("Produto alterado com sucesso!");
+            window.location.href =  'produto_lista.php';
+        </script>
+<?php
+        
     }
 
 ?>
