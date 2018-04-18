@@ -2,6 +2,9 @@
     include_once("cabecalho.php");
     include_once("conecta.php");
     include_once("produto_data_base.php");
+    
+    $oConexao         = new BancoDados("localhost", "root", "", "loja");
+    $oProdutoDataBase = new ProdutosDataBase($oConexao);
 ?>
 
     <table class ="table table-striped table-bordered">
@@ -15,7 +18,7 @@
         </tr>
 
         <?php
-            $oProdutos = listaProdutos($oConexao);
+            $oProdutos = $oProdutoDataBase->listaProdutos();
             foreach($oProdutos as $oProduto) :
         ?>
 

@@ -2,11 +2,12 @@
     include_once("cabecalho.php");
     include_once("conecta.php");
     include_once("produto_data_base.php");
-
-
+    
+    $oConexao          = new BancoDados("localhost", "root", "", "loja");
+    $oProdutosDataBase = new ProdutosDataBase($oConexao);
     $iId = $_POST["id"];
 
-    $bExclusao = removeProduto($oConexao, $iId);
+    $bExclusao = $oProdutosDataBase->removeProduto($iId);
 
     if($bExclusao) {
         ?>

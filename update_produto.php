@@ -2,6 +2,9 @@
     include_once("cabecalho.php");
     include_once("conecta.php");
     include_once("produto_data_base.php");
+    
+    $oConexao          = new BancoDados("localhost", "root", "", "loja");
+    $oProdutosDataBase = new ProdutosDataBase($oConexao);
 
     
     $aCampos = [
@@ -12,7 +15,7 @@
         "preco" => $_POST["preco"]
     ];
 
-    $oResultado = alteraProduto($oConexao, $aCampos);
+    $oResultado = $oProdutosDataBase->alteraProduto($aCampos);
     
     if(!$oResultado) {
         echo "Produto não encontrado";

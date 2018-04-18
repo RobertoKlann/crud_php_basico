@@ -2,6 +2,9 @@
     include_once("cabecalho.php");
     include_once("conecta.php");
     include_once("produto_data_base.php");
+    
+    $oConexao = new BancoDados("localhost", "root", "", "loja");
+    $oProdutosDataBase = new ProdutosDataBase($oConexao);
 
     $aCampos = [
         "id_cat"       => $_POST["id_cat"],
@@ -11,7 +14,7 @@
         "preco"        => $_POST["preco"]
     ];
 
-    $bInclusao = addProduto($oConexao, $aCampos);
+    $bInclusao = $oProdutosDataBase->addProduto($aCampos);
 
     if($bInclusao) {
         ?>

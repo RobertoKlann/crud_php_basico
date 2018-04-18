@@ -1,6 +1,25 @@
 <?php
 
-    function listaProdutos($oConexao) {
+/**
+ * Classe responsavel por executar todas as funções de banco de dados
+ * 
+ * @author Roberto Klann
+ * @since 18/04/2018
+ */
+class ProdutosDataBase {
+    
+    private $oDataBase;
+    
+    /**
+     * Método Construtor da Classe
+     * 
+     * @param type $oConexao
+     */
+    public function __construct($oConexao) {
+        $this->oDataBase = $oConexao;
+    }
+    
+    public function listaProdutos() {
         $aProdutos = array();
 
         $sSql = "
@@ -12,7 +31,7 @@
                     ON c.id = p.categoria_id
             ";
 
-        $oResultado = mysqli_query($oConexao, $sSql);
+        $oResultado = mysqli_query($this->oDataBase->getConexao(), $sSql);
 
         while($oLinhas = mysqli_fetch_array($oResultado)) {
               $aProdutos[] =  $oLinhas;
@@ -20,7 +39,13 @@
         return $aProdutos;
     }
 
-    function selectProduto($oConexao, $iId) {
+    /**
+     * Método retorna o produto passado por parametro
+     * 
+     * @param type $iId
+     * @return type
+     */
+    public function selectProduto($iId) {
         $aProdutos = array();
 
         $sSql = '
@@ -32,7 +57,7 @@
                    ON c.id = p.categoria_id
                 WHERE p.id = ' . $iId;
 
-        $oResultado = mysqli_query($oConexao, $sSql);
+        $oResultado = mysqli_query($this->oDataBase->getConexao(), $sSql);
 
         while($oLinhas = mysqli_fetch_array($oResultado)) {
               $aProdutos[] =  $oLinhas;
@@ -40,7 +65,13 @@
         return $aProdutos;
     }
 
-    function alteraProduto($oConexao, $aCamposAlterar) {
+    /**
+     * Método utilizado para realizar o UPDATE no produto
+     * 
+     * @param type $aCamposAlterar
+     * @return type
+     */
+    public function alteraProduto($aCamposAlterar) {
 
         
         $sSql = "
@@ -48,20 +79,31 @@
                SET nome = '" . $aCamposAlterar["nome_produto"] . "', categoria_id = " . $aCamposAlterar["categoria_id"] .', 
                           preco = ' . $aCamposAlterar["preco"] . " WHERE id = 1";
                           
-        return mysqli_query($oConexao, $sSql);
+        return mysqli_query($this->oDataBase->getConexao(), $sSql);
     }
 
 
-    function removeProduto($oConexao, $iId) {
+    /**
+     * Método utilizado para realizar o DELETE do produto
+     * 
+     * @param type $iId
+     * @return type
+     */
+    public function removeProduto($iId) {
         $sSql = '
             DELETE 
               FROM produtos 
              WHERE id = ' . $iId;
 
-        return mysqli_query($oConexao, $sSql);
+        return mysqli_query($this->oDataBase->getConexao(), $sSql);
     }
 
-    function listaCategorias($oConexao) {
+    /**
+     * Método utilizado para listar todas as categorias da base de dados
+     * 
+     * @return type
+     */
+    public function listaCategorias() {
         $aCategorias = array();
         
         $sSql = '
@@ -70,7 +112,7 @@
               JOIN categorias as c
                 ON c.id = p.categoria_id';
 
-        $oResultado = mysqli_query($oConexao, $sSql);
+        $oResultado = mysqli_query($this->oDataBase->getConexao(), $sSql);
         
         while($oLinhas = mysqli_fetch_array($oResultado)) {
             $aCategorias[] =  $oLinhas;
@@ -78,14 +120,20 @@
       return $aCategorias;
     }
 
-    function addProduto($oConexao, $aCampos) {
+    /**
+     * Método utilizado para realizar o INSERT de produtos
+     * 
+     * @param type $aCampos
+     * @return type
+     */
+    public function addProduto($aCampos) {
 
         $sSql = "
             INSERT INTO produtos (id, nome, preco, descricao, categoria_id)
                  VALUES (" . $aCampos["id_produto"] . ", '" . $aCampos["nome_produto"] . "'," .  $aCampos["preco"] . ",'" . $aCampos["descricao"] . "'," . $aCampos["id_cat"] . ")
         ";
 
-        return mysqli_query($oConexao, $sSql);
+        return mysqli_query($this->oDataBase->getConexao(), $sSql);
     }
-
-?>  
+    
+}

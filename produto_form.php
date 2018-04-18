@@ -1,6 +1,11 @@
 <?php
     include_once("cabecalho.php");
     include_once("conecta.php");
+    include_once("produto_data_base.php");
+    
+    $oConexao         = new BancoDados("localhost", "root", "", "loja");
+    $oProdutoDataBase = new ProdutosDataBase($oConexao);
+    
 ?>
 
 <div class = "jumbotron">

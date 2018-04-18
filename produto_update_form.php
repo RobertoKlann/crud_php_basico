@@ -2,6 +2,9 @@
     include_once("cabecalho.php");
     include_once("conecta.php");
     include_once("produto_data_base.php");
+    
+    $oConexao       = new BancoDados("localhost", "root", "", "loja");
+    $oProdutosDataBase = new ProdutosDataBase($oConexao);
 
     $iId = $_POST["id"];
 ?>
@@ -31,8 +34,8 @@
     <div class = "container">
         <div class = "col-xs-12 col-sm-12">
         <?php
-            $aProdutos   = selectProduto($oConexao, $iId);
-            $aCategorias = listaCategorias($oConexao);
+            $aProdutos   = $oProdutosDataBase->selectProduto($iId);
+            $aCategorias = $oProdutosDataBase->listaCategorias();
         ?>    
             <form action = "update_produto.php" method = "POST">
                 <div class="form-group">
